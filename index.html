@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <title>Speedtest</title>
+</head>
+<body>
+  <script src="https://momentjs.com/downloads/moment.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="js/csv-utils.js"></script>
+
+  <script type="text/javascript">
+    loadCSV(function(response) {
+      var csvArray = CSVToArray(response, ",");
+      var chartData = {
+        chart: {
+            zoomType: 'x'
+        },
+        title : {
+          text: 'Speedtest History'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+          title: {
+            text: 'Mbit/s'
+          }
+        },
+        series: [{
+          name: csvArray[0][6],
+          data: getAllDataFromColumn(csvArray, 6)
+        }, {
+          name: csvArray[0][7],
+          data: getAllDataFromColumn(csvArray, 7)
+        }, {
+          name: csvArray[0][5],
+          data: getAllDataFromColumn(csvArray, 5)
+        }],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
+      };
+
+      Highcharts.chart('container', chartData);
+    });
+  </script>
+
+  <div id="container"></div>
+</body>
+</html>
