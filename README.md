@@ -1,4 +1,7 @@
 # Speedtest
+
+![image](example.png)
+
 ## Description
 This project is for visualizing speedtest result data from the `speedtest-cli` package on my home server.
 A speedtest is run by the `run_test.sh` script and appends its result to a `.csv` file which then is processed by the webserver.
